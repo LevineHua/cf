@@ -1,0 +1,7 @@
+node_modules/
+unpackage/debug
+unpackage/dist/dev
+unpackage/dist/build/.automator
+unpackage/dist/dev/.sourcemap
+/unpackage/dist/build/app-plus/
+/unpackage/release

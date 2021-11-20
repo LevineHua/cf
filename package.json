@@ -1,0 +1,28 @@
+{
+  "name": "change-face",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Levine Hua",
+  "license": "ISC",
+  "dependencies": {
+    "js-md5": "^0.7.3",
+    "uni-read-pages": "^1.0.5",
+    "uni-simple-router": "^1.5.5",
+    "vuex": "^3.5.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.31.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-vue": "^7.15.0",
+    "lint-staged": "^11.1.1",
+    "prettier": "^2.3.2",
+    "vue-eslint-parser": "^7.10.0"
+  }
+}

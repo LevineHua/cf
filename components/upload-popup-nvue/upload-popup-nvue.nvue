@@ -1,0 +1,110 @@
+<template>
+	<cover-view class="cover-view-marks" :style="height">
+	  <view class="upload-popup">
+		<view class="upload-popup__title"><text class="text">选择一张人脸</text></view>
+		<view class="upload-popup__close" @click="close">
+		  <image src="/static/public/close-icon.png" class="image"></image>
+		</view>
+		<view class="upload-popup__menus">
+		  <view class="menu-item" @click="photograph(['camera'])">
+			<image src="/static/public/photograph-icon.png" class="image"></image>
+			<text class="text">拍照</text>
+		  </view>
+		  <view class="menu-item" @click="photograph(['album'])">
+			<image src="/static/public/album-icon.png" class="image"></image>
+			<text class="text">相册</text>
+		  </view>
+		</view>
+	  </view>
+	</cover-view>
+</template>
+
+<script>
+	let system = uni.getSystemInfoSync()
+	export default {
+		data() {
+			return {
+				title: '',
+				content: '',
+				lists: [],
+			}
+		},
+		computed: {
+		    height() {
+		      return `height: ${system.screenHeight}px`
+		    }
+		  },
+		methods: {
+			
+		}
+	}
+</script>
+
+<style lang="scss" scoped>
+	
+	.cover-view-marks {
+	  position: absolute;
+	  bottom: 0;
+	  left: 0;
+	  background: rgba(0, 0, 0, 0.7);
+	  z-index: 9999999;
+	  width: 750rpx;
+	  .upload-popup {
+	    width: 750rpx;
+	    height: 368rpx;
+	    background: #191a1f;
+	    border-radius: 10rpx;
+	    position: absolute;
+	    bottom: 0;
+	    &__title {
+	      padding: 32rpx;
+	      .text {
+	        text-align: center;
+	        font-size: 26rpx;
+	        font-family: Microsoft YaHei;
+	        color: #ffffff;
+	      }
+	    }
+	    &__close {
+	      width: 38rpx;
+	      height: 38rpx;
+	      background: #111111;
+	      border-radius: 50%;
+	      position: absolute;
+	      right: 28rpx;
+	      top: 28rpx;
+	      align-items: center;
+	      justify-content: center;
+	      .image {
+	        width: 14rpx;
+	        height: 14rpx;
+	      }
+	    }
+	    &__menus {
+	      margin-top: 46rpx;
+	      padding: 0 50rpx;
+	      flex-direction: row;
+	      width: 750rpx;
+	      justify-content: space-between;
+	      .menu-item {
+	        width: 308rpx;
+	        height: 157rpx;
+	        background: #24252c;
+	        border-radius: 10rpx;
+	        align-items: center;
+	        justify-content: center;
+	        .image {
+	          width: 68rpx;
+	          height: 58rpx;
+	          margin-bottom: 13rpx;
+	        }
+	        .text {
+	          font-size: 26rpx;
+	          font-family: Microsoft YaHei;
+	          color: #ffffff;
+	        }
+	      }
+	    }
+	  }
+	}
+</style>

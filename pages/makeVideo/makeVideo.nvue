@@ -1,0 +1,367 @@
+<!--
+ * @Description: 
+ * @Author: Levine
+ * @Date: 2021-11-04 21:33:58
+ * @LastEditors: Levine
+ * @LastEditTime: 2021-11-07 16:28:08
+ * @FilePath: \change-face\pages\makeVideo\makeVideo.nvue
+-->
+<template>
+  <view class="u-page" :style="height">
+    <!-- 顶部导航栏 -->
+    <navbar-nvue :config="config" v-if="!showBuy">
+      <view slot="right" class="navbar-right">
+        <image src="/static/index/start-icon.png" style="width: 38rpx; height: 38rpx"></image>
+      </view>
+    </navbar-nvue>
+    <!-- 视频 -->
+    <view class="u-page__make-video">
+      <video
+        class="video"
+        src="https://img.cdn.aliyun.dcloud.net.cn/guide/uniapp/%E7%AC%AC1%E8%AE%B2%EF%BC%88uni-app%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D%EF%BC%89-%20DCloud%E5%AE%98%E6%96%B9%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B@20200317.mp4"
+        autoplay
+        loop
+        :controls="true"
+      ></video>
+    </view>
+    <!-- 操作区 -->
+    <view class="u-page__make-footer">
+      <view class="faces">
+        <view class="add-btn" @click="show = true">
+          <image src="/static/index/add-icon.png" class="add-icon"></image>
+        </view>
+        <view class="face-img">
+          <image src="https://jdc.jd.com/img/58" mode="aspectFill" class="face-image"></image>
+        </view>
+        <text class="face-tip">添加一张人脸</text>
+      </view>
+      <view class="open-type-button" @click="showBuy = true">
+        <text class="text">开始制作</text>
+      </view>
+    </view>
+
+    <!-- 选择人脸 -->
+    <cover-view class="cover-view-marks" :style="height" v-if="show">
+      <view class="upload-popup">
+        <view class="upload-popup__title"><text class="text">选择一张人脸</text></view>
+        <view class="upload-popup__close" @click="show = false">
+          <image src="/static/public/close-icon.png" class="image"></image>
+        </view>
+        <view class="upload-popup__menus">
+          <view class="menu-item">
+            <image src="/static/public/photograph-icon.png" class="image"></image>
+            <text class="text">拍照</text>
+          </view>
+          <view class="menu-item">
+            <image src="/static/public/album-icon.png" class="image"></image>
+            <text class="text">相册</text>
+          </view>
+        </view>
+      </view>
+    </cover-view>
+	
+    <!-- 立即购买 -->
+    <cover-view class="cover-view-marks buy-marks" :style="height" v-if="showBuy">
+      <image src="/static/mine/close.png" class="close-btn" @click="showBuy = false"></image>
+      <view class="buy-popup">
+        <view class="buy-popup-bg">
+          <!-- <image src="https://jdc.jd.com/img/750x331" class="top-bg"></image>
+          <view class="bottom-bg"></view> -->
+        </view>
+        <view class="buy-popup-body">
+          <view class="vip-info">
+            <text class="vip-title">会员权益</text>
+            <text class="vip-content">解锁所有视频、高清导出无水印保存、无广告</text>
+          </view>
+          <view class="buy-info">
+            <view class="buy-package">
+              <view class="package-body">
+                <text class="package-text">月会员</text>
+                <text class="package-text">￥88/月</text>
+              </view>
+            </view>
+            <view class="buy-btn">
+              <text class="btn-text">立即购买</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </cover-view>
+  </view>
+</template>
+
+<script>
+let system = uni.getSystemInfoSync()
+export default {
+  data() {
+    return {
+      config: {
+        color: '#ffffff',
+        rightSlot: true,
+        backgroundColor: [1, ['#a9a1ff', '#6970ff', '#ff55ff', '#ff9999']]
+      },
+      show: false,
+	  showBuy: false
+    }
+  },
+  computed: {
+    height() {
+      return `height: ${system.screenHeight}px`
+    }
+  },
+  methods: {
+    make() {
+      /*this.$Router.push({
+        name: 'making'
+      })*/
+      uni.navigateTo({
+        url: '/pages/making/making'
+      })
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.u-page {
+  flex: 1;
+  background: #000;
+  flex-direction: column;
+  justify-content: flex-start;
+  .navbar-right {
+    padding-right: 20rpx;
+  }
+  &__make-video {
+    flex: 1;
+  }
+  &__make-footer {
+    width: 750rpx;
+    height: 280rpx;
+    padding: 30rpx;
+    .faces {
+      width: 690rpx;
+      display: flex;
+      flex-direction: row;
+      align-content: center;
+      .add-btn {
+        width: 68rpx;
+        height: 68rpx;
+        background: #111111;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        .add-icon {
+          width: 27rpx;
+          height: 27rpx;
+          margin-left: 20rpx;
+        }
+      }
+      .face-img {
+        width: 68rpx;
+        height: 68rpx;
+        background-image: linear-gradient(to right, #f09492, #7c16f5);
+        border-radius: 50% 50%;
+        overflow: hidden;
+        margin-left: 25rpx;
+        align-items: center;
+        justify-content: center;
+        .face-image {
+          border-radius: 50px;
+          width: 58rpx;
+          height: 58rpx;
+        }
+      }
+      .face-tip {
+        margin-left: 30rpx;
+        font-size: 26rpx;
+        font-family: Microsoft YaHei;
+        color: #ffffff;
+        line-height: 68rpx;
+      }
+    }
+    .open-type-button {
+      width: 690rpx;
+      height: 90rpx;
+      border-radius: 5rpx;
+      margin-top: 26rpx;
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
+      background-image: linear-gradient(to right, #f09492, #7c16f5);
+      .text {
+        color: #fff;
+        font-size: 30rpx;
+        font-weight: bold;
+      }
+    }
+  }
+}
+.video {
+  flex: 1;
+}
+
+.cover-view-marks {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 9999999;
+  width: 750rpx;
+  .upload-popup {
+    width: 750rpx;
+    height: 368rpx;
+    background: #191a1f;
+    border-radius: 10rpx;
+    position: absolute;
+    bottom: 0;
+    &__title {
+      padding: 32rpx;
+      .text {
+        text-align: center;
+        font-size: 26rpx;
+        font-family: Microsoft YaHei;
+        color: #ffffff;
+      }
+    }
+    &__close {
+      width: 38rpx;
+      height: 38rpx;
+      background: #111111;
+      border-radius: 50%;
+      position: absolute;
+      right: 28rpx;
+      top: 28rpx;
+      align-items: center;
+      justify-content: center;
+      .image {
+        width: 14rpx;
+        height: 14rpx;
+      }
+    }
+    &__menus {
+      margin-top: 46rpx;
+      padding: 0 50rpx;
+      flex-direction: row;
+      width: 750rpx;
+      justify-content: space-between;
+      .menu-item {
+        width: 308rpx;
+        height: 157rpx;
+        background: #24252c;
+        border-radius: 10rpx;
+        align-items: center;
+        justify-content: center;
+        .image {
+          width: 68rpx;
+          height: 58rpx;
+          margin-bottom: 13rpx;
+        }
+        .text {
+          font-size: 26rpx;
+          font-family: Microsoft YaHei;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+  
+  &.buy-marks {
+	  background: rgba(0, 0, 0, 0);
+	  .close-btn {
+		  width: 57rpx;
+		  height: 57rpx;
+		  position: absolute;
+		  left: 18rpx;
+		  top: 75rpx;
+	  }
+	  .buy-popup {
+      width: 750rpx;
+      height: 740rpx;
+		  position: absolute;
+		  bottom: 0;
+		  .buy-popup-bg {
+			  // .top-bg {
+        //  width: 750rpx;
+        //  height: 331rpx;
+			  // }
+			  // .bottom-bg {
+        //  width: 750rpx;
+        //  height: 409rpx;
+        //  background: #000;
+			  // }
+			  background-image: url('/static/index/video-bg.png');
+			  background-size: 100% 100%;
+		  }
+		  .buy-popup-body {
+			  width: 750rpx;
+			  height: 740rpx;
+			  position: absolute;
+			  bottom: 0;
+			  padding: 200rpx 30rpx 60rpx;
+			  flex-direction: column;
+			  justify-content: space-between;
+			  align-items: center;
+			  .vip-info {
+          justify-content: center;
+          align-items: center;
+          .vip-title {
+            font-size: 45rpx;
+            font-weight: bold;
+            color: #FFFFFF;
+          }
+          .vip-content {
+            font-size: 30rpx;
+            color: #9F9F9F;
+            width: 360rpx;
+            text-align: center;
+            margin-top: 20rpx;
+          }
+			  }
+			  .buy-info {
+          .buy-package {
+            width: 690rpx;
+            height: 140rpx;
+            background-image: linear-gradient(to right, #F09492, #7C16F5);
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+            margin-bottom: 26rpx;
+            .package-body {
+              background: #000;
+              width: 678rpx;
+              height: 128rpx;
+              background: #040D19;
+              flex-direction: row;
+              justify-content: space-between;
+              align-items: center;
+              padding: 0 30rpx;
+              .package-text {
+                font-size: 30rpx;
+                font-weight: bold;
+                color: #FFFFFF;
+              }
+            }
+          }
+          .buy-btn {
+            width: 690rpx;
+            height: 90rpx;
+            background-image: linear-gradient(to right, #F09492, #7C16F5);
+            border-radius: 5rpx;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+            .btn-text {
+              font-size: 30rpx;
+              font-weight: bold;
+              color: #FFFFFF;
+            }
+          }
+			  }
+		  }
+		  
+	  }
+  }
+  
+  
+}
+</style>
